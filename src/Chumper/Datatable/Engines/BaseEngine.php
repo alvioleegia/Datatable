@@ -229,7 +229,7 @@ abstract class BaseEngine {
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function make()
+    public function make($default = true)
     {
         //TODO Handle all inputs
         $this->handleInputs();
@@ -239,7 +239,7 @@ abstract class BaseEngine {
             "aaData" => $this->internalMake($this->columns, $this->searchColumns)->toArray(),
             "sEcho" => intval($this->sEcho),
             "iTotalRecords" => $this->totalCount(),
-            "iTotalDisplayRecords" => $this->count(),
+            "iTotalDisplayRecords" => $default ? $this->count() : $this->totalCount(),
         );
         return Response::json($output);
     }
